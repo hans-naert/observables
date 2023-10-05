@@ -1,5 +1,4 @@
-var Observable = require('rxjs').Observable;
-var map = require('rxjs/operators').map;
+import {Observable, map} from 'rxjs';
 
 var observable = new Observable(function(observer) { 
 	observer.next(1); 
