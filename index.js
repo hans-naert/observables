@@ -1,5 +1,5 @@
-import {Observable, map} from 'rxjs';
-
+import {Observable, Subject, map} from 'rxjs';
+const subject = new Subject();
 var observable = new Observable(function(observer) { 
 	observer.next(1); 
 	observer.next(2); 
@@ -10,9 +10,16 @@ var observable = new Observable(function(observer) {
 var observable_byTen = observable.pipe(map(x => 10 * x));
 
 console.log('just before subscribe'); 
-observable_byTen.subscribe({ 
+
+subject.subscribe({ 
 	next: x => console.log('got value ' + x), 
 	error: err => console.error('something wrong occurred: '+err), 
 	complete: () => console.log('done'), }); 
 console.log('just after subscribe');
 
+subject.subscribe({ 
+	next: x => console.log('got value ' + x), 
+	error: err => console.error('something wrong occurred: '+err), 
+	complete: () => console.log('done'), });
+
+observable_byTen.subscribe(subject);
